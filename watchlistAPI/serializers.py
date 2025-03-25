@@ -2,6 +2,8 @@ from rest_framework import serializers
 from . models import WatchList, WatchCategory, Reviews
 
 class ReviewSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+    
     class Meta:
         model = Reviews
         fields = "__all__"
@@ -17,14 +19,15 @@ class ReviewSerializer(serializers.ModelSerializer):
             },
         }
 
+class WatchCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WatchCategory
+        fields = "__all__"
+
 class WatchListSerializer(serializers.ModelSerializer):
+    category = serializers.StringRelatedField()
+
     reviews = ReviewSerializer(many=True, read_only=True)
     class Meta:
         model = WatchList
-        fields = "__all__"
-
-class WatchCategorySerializer(serializers.ModelSerializer):
-    watchlist = WatchListSerializer(many=True, read_only=True)
-    class Meta:
-        model = WatchCategory
         fields = "__all__"

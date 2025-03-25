@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class WatchCategory(models.Model):
     name = models.CharField(max_length=32, unique=True)
@@ -8,14 +9,14 @@ class WatchCategory(models.Model):
     
 class WatchList(models.Model):
     title = models.CharField(max_length=32)
-    category = models.ForeignKey(WatchCategory, on_delete=models.SET_NULL, null=True, related_name='watchlist')
+    category = models.ForeignKey(WatchCategory, on_delete=models.SET_NULL, null=True)
     release_date = models.DateField()
-    is_watched = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
     
 class Reviews(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     review = models.TextField()
     rating = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
