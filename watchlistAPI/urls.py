@@ -9,5 +9,4 @@ router.register('review', ReviewView, basename='review')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('auth-api/', include('rest_framework.urls')),
 ]

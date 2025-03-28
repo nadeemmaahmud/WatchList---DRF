@@ -25,9 +25,8 @@ class WatchCategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class WatchListSerializer(serializers.ModelSerializer):
-    category = serializers.StringRelatedField()
-
     reviews = ReviewSerializer(many=True, read_only=True)
+
     class Meta:
         model = WatchList
         fields = "__all__"
